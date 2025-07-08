@@ -1,22 +1,25 @@
 import bcrypt from 'bcryptjs'
 import type { Request, RequestHandler, Response } from 'express'
 import User from './../models/user.model.ts'
-import { generateToken } from '../lib/util.ts'
+import { generateTokenAndSetCookie } from '../lib/util.ts'
 
 export const signup = async (req: Request, res: Response) => {
-    // ✏️ Take in signup info
-    const { username, email, password } = req.body
-    // ✏️ Attempt to validate and store signup credentials
     try {
+        // ✏️ Take in signup info and validate
+        const { username, email, password } = req.body 
+        if (!username || !email || !password) {
+            res.status(400).json({ message: '❌ Missing required fields.' })
+            return
+        }
         if (password.length < 8) {
-            res.status(400).json({ message: '❌ Password must be at least 8 characters.' }) // ⚠️ Validate password length
+            res.status(400).json({ message: '❌ Password must be at least 8 characters.' }) 
             return // 📝 This return is needed to maintain the TS ResponseHandler's return-type contract; Inline 'return' would break the contract
         }
 
         const user = await User.findOne({ email })
 
         if (user) {
-            res.status(400).json({ message: '❌ Email already exists.' }) // ⚠️ Validate for duplicate Email
+            res.status(400).json({ message: '❌ Email already exists.' })
             return
         }
 
@@ -31,7 +34,7 @@ export const signup = async (req: Request, res: Response) => {
         })
 
         if (newUser) {
-            generateToken(newUser._id, res)
+            generateTokenAndSetCookie(newUser._id, res)
             await newUser.save() // ✏️ New user is added
             res.status(201).json({
                 message: '✔️ New user has been created!',
@@ -44,23 +47,44 @@ export const signup = async (req: Request, res: Response) => {
         }
     } catch (error) {
         console.log('💢 Error within signup controller:', error)
-        res.status(500).json({ message: '💢 Something is broken on our end.' })
+        res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
 
 export const login = async (req: Request, res: Response) => {
-    const { username, password } = req.body
+    try {
+        // ✏️ Take in login info
+        const { username, password } = req.body
 
-    const user = await User.findOne({ username })
+        const user = await User.findOne({ username })
+        // ✏️ Validate given password against hashed password
+        const isValidPassword = bcrypt.compare(password, user?.password || '')
 
-    const isValidPassword = bcrypt.compare(password, user?.password || '')
+        if (!user || !isValidPassword) {
+            res.status(400).json({ message: '❌ Incorrect username or password.' })
+            return
+        }
+        // ✏️ Generate new token and set session cookie
+        generateTokenAndSetCookie(user._id, res)
 
-    if (!user || !isValidPassword) {
-        res.status(400).json({ message: '❌ Incorrect username or password.' })
-        return
+        res.status(200).json({
+            message: '✔️ User sucessfully logged in.',
+            username: user.username,
+            profilePicture: user.profilePicture,
+        })
+    } catch (error) {
+        console.log('💢 Error within login controller:', error)
+        res.status(500).json({ error: '💢 Something is broken on our end.'})
     }
 }
 
 export const logout = (req: Request, res: Response) => {
-    res.send('logout route')
+    try {
+        // ✏️ Sets JWT age to 0, terminating token
+        res.cookie('jwt', '', { maxAge: 0 })
+        res.status(200).json({ message: '✔️ Logged out successfully'})
+    } catch (error) {
+        console.log('💢 Error within logout controller.')
+        res.status(500).json({ error: '💢 Something is broken on our end.'})
+    }
 }
