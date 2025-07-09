@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import type { Request, RequestHandler, Response } from 'express'
+import type { Request, Response } from 'express'
 import User from './../models/user.model.ts'
 import { generateTokenAndSetCookie } from '../lib/util.ts'
 
@@ -13,7 +13,7 @@ export const signup = async (req: Request, res: Response) => {
         }
         if (password.length < 8) {
             res.status(400).json({ message: '❌ Password must be at least 8 characters.' }) 
-            return // 📝 This return is needed to maintain the TS ResponseHandler's return-type contract; Inline 'return' would break the contract
+            return // 📝 This 'return' is needed to maintain the TS ResponseHandler's return-type contract; Inline 'return' would break the contract
         }
 
         const user = await User.findOne({ email })

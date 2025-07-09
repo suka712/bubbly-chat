@@ -17,5 +17,6 @@ export const generateTokenAndSetCookie = (userId: Types.ObjectId, res: Response)
         sameSite: 'strict',
         secure: process.env.NODE_ENV !== 'development',
     })
+    
     return token
 }
