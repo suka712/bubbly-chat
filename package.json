@@ -1,5 +1,10 @@
 {
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
     "@types/jsonwebtoken": "^9.0.10"
+  },
+  "dependencies": {
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7"
   }
 }

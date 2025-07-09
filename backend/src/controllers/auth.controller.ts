@@ -88,3 +88,10 @@ export const logout = (req: Request, res: Response) => {
         res.status(500).json({ error: '💢 Something is broken on our end.'})
     }
 }
+
+export const updateProfile = (req: any, res: Response) => {
+    const {profilePicture} = req.body
+    const userId = req.user._id
+
+    
+}
