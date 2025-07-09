@@ -111,10 +111,10 @@ export const updateProfile = async (req: any, res: Response) => {
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
-// ✏️ Used for testing authenication
+
 export const verifyAuth = async (req: any, res: Response) => { 
     try {
-        res.status(200).json(req.user)
+        res.status(200).json(req.user) // ✏️ Used for testing authenication 
     } catch (error) {
         console.log('💢 Error at verifyAuth controller.')
         res.status(500).json({ message: '💢 Something is broken on our end.' }) 
