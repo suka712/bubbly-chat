@@ -2,17 +2,18 @@ import bcrypt from 'bcryptjs'
 import type { Request, Response } from 'express'
 import User from './../models/user.model.ts'
 import { generateTokenAndSetCookie } from '../lib/util.ts'
+import cloudinary from '../lib/cloudinary.ts'
 
 export const signup = async (req: Request, res: Response) => {
     try {
         // ✏️ Take in signup info and validate
-        const { username, email, password } = req.body 
+        const { username, email, password } = req.body
         if (!username || !email || !password) {
             res.status(400).json({ message: '❌ Missing required fields.' })
             return
         }
         if (password.length < 8) {
-            res.status(400).json({ message: '❌ Password must be at least 8 characters.' }) 
+            res.status(400).json({ message: '❌ Password must be at least 8 characters.' })
             return // 📝 This 'return' is needed to maintain the TS ResponseHandler's return-type contract; Inline 'return' would break the contract
         }
 
@@ -74,7 +75,7 @@ export const login = async (req: Request, res: Response) => {
         })
     } catch (error) {
         console.log('💢 Error within login controller:', error)
-        res.status(500).json({ error: '💢 Something is broken on our end.'})
+        res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
 
@@ -82,16 +83,40 @@ export const logout = (req: Request, res: Response) => {
     try {
         // ✏️ Sets JWT age to 0, terminating token
         res.cookie('jwt', '', { maxAge: 0 })
-        res.status(200).json({ message: '✔️ Logged out successfully'})
+        res.status(200).json({ message: '✔️ Logged out successfully' })
     } catch (error) {
         console.log('💢 Error within logout controller.')
-        res.status(500).json({ error: '💢 Something is broken on our end.'})
+        res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
 
-export const updateProfile = (req: any, res: Response) => {
-    const {profilePicture} = req.body
-    const userId = req.user._id
+export const updateProfile = async (req: any, res: Response) => {
+    try {
+        // ✏️ Take in Profile picture
+        const { profilePicture } = req.body
+        const userId = req.user._id
 
-    
+        if (!profilePicture) {
+            res.status(400).json({ message: '❌ Profile picture is required' })
+            return
+        }
+
+        const uploadResponse = await cloudinary.uploader.upload(profilePicture) // ✏️ Uploads Profile pic to Cloudinary
+
+        const updatedUser = await User.findByIdAndUpdate(userId, { profilePicture: uploadResponse.secure_url }, { new: true }) // ✏️ Update and return the updated user
+
+        res.status(200).json({ message: '✔️ Successfully updated user.', updatedUser })
+    } catch (error) {
+        console.log('💢 Error on updateProfile controller.')
+        res.status(500).json({ error: '💢 Something is broken on our end.' })
+    }
+}
+// ✏️ Used for testing authenication
+export const verifyAuth = async (req: any, res: Response) => { 
+    try {
+        res.status(200).json(req.user)
+    } catch (error) {
+        console.log('💢 Error at verifyAuth controller.')
+        res.status(500).json({ message: '💢 Something is broken on our end.' }) 
+    }
 }
