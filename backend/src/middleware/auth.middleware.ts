@@ -19,10 +19,10 @@ export const protectRoute = async (req: any, res: Response, next: NextFunction) 
             return
         }
 
-        const user = await User.findById(decodedToken.userId).select('-password')
+        const user = await User.findById(decodedToken.userId).select('-password') // ✏️ Selecting user's field besides password.
 
         if (!user) {
-            res.status(404).json({ message: '❌ User not found.' })
+            res.status(404).json({ message: '❌ User not found.' }) // ✏️ Shouldn't happen. But this is here if it does happen.
             return
         }
 
