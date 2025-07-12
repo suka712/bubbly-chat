@@ -8,14 +8,14 @@ export const protectRoute = async (req: any, res: Response, next: NextFunction) 
         const token = req.cookies.jwt
 
         if (!token) {
-            res.status(400).json({ message: '❌ Unauthorized.' })
+            res.status(401).json({ message: '❌ Unauthorized.' })
             return
         }
 
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
 
         if (!decodedToken) {
-            res.status(400).json({ message: '❌ Unauthorized.' })
+            res.status(401).json({ message: '❌ Unauthorized.' })
             return
         }
 
