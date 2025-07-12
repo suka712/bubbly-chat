@@ -30,7 +30,7 @@ export const protectRoute = async (req: any, res: Response, next: NextFunction) 
 
         next()
     } catch (error) {
-        console.log('💢 Error occured in the authorization middleware.')
+        console.log('💢 Error in protectRoute middleware.')
         res.status(500).json({ message: '💢 Something is broken on our end.' })
     }
 }
