@@ -40,7 +40,7 @@ export const sendMessage = async (req: any, res: Response) => {
         const { text, image } = req.body
         const { id: receiverId } = req.body
         const senderId = req.user._id
-        
+
         let imageUrl: string | undefined
         if (image) {
             const uploadResponse = await cloudinary.uploader.upload(image)
@@ -50,8 +50,8 @@ export const sendMessage = async (req: any, res: Response) => {
         const newMessage = new Message({
             senderId: senderId,
             receiverId: receiverId,
-            text: text, 
-            image: imageUrl
+            text: text,
+            image: imageUrl,
         })
 
         await newMessage.save()
@@ -61,6 +61,6 @@ export const sendMessage = async (req: any, res: Response) => {
         res.status(201).json(newMessage)
     } catch (error) {
         console.log('💢 Error in sendMessage controller.')
-        res.status(500).json({ error: '💢 Something is broken on our end.' })        
+        res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }

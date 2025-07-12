@@ -91,7 +91,6 @@ export const logout = (req: Request, res: Response) => {
 }
 
 export const updateProfile = async (req: any, res: Response) => {
-    
     try {
         // ✏️ Take in Profile picture
         const { profilePicture } = req.body
@@ -113,11 +112,11 @@ export const updateProfile = async (req: any, res: Response) => {
     }
 }
 
-export const checkAuth = async (req: any, res: Response) => { 
+export const checkAuth = async (req: any, res: Response) => {
     try {
         res.status(200).json(req.user)
     } catch (error) {
         console.log('💢 Error in checkAuth controller.')
-        res.status(500).json({ message: '💢 Something is broken on our end.' }) 
+        res.status(500).json({ message: '💢 Something is broken on our end.' })
     }
 }
