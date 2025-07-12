@@ -11,7 +11,7 @@ export const getUsersForSideBar = async (req: any, res: Response) => {
 
         res.status(200).json(filteredUsers) // ✏️ Respond with the list of users
     } catch (error) {
-        console.log('💢 Error on getUsersForSideBar controller.')
+        console.log('💢 Error in getUsersForSideBar controller.')
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
@@ -30,7 +30,7 @@ export const getMessages = async (req: any, res: Response) => {
 
         res.status(200).json(messages) // ✏️ Responds with the messages.
     } catch (error) {
-        console.log('💢 Error on getMessages controller.')
+        console.log('💢 Error in getMessages controller.')
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
@@ -56,9 +56,11 @@ export const sendMessage = async (req: any, res: Response) => {
 
         await newMessage.save()
 
-        // TODO: realtime functionalities with SocketIO
+        // ☑️ TODO: realtime functionalities with SocketIO
+
+        res.status(201).json(newMessage)
     } catch (error) {
-        console.log('💢 Error on sendMessage controller.')
+        console.log('💢 Error in sendMessage controller.')
         res.status(500).json({ error: '💢 Something is broken on our end.' })        
     }
 }

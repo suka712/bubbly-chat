@@ -47,7 +47,7 @@ export const signup = async (req: Request, res: Response) => {
             res.status(400).json({ message: '❌ Invalid user data.' })
         }
     } catch (error) {
-        console.log('💢 Error at signup controller:', error)
+        console.log('💢 Error in Signup controller:', error)
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
@@ -74,7 +74,7 @@ export const login = async (req: Request, res: Response) => {
             profilePicture: user.profilePicture,
         })
     } catch (error) {
-        console.log('💢 Error at login controller:', error)
+        console.log('💢 Error in Login controller:', error)
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
@@ -85,7 +85,7 @@ export const logout = (req: Request, res: Response) => {
         res.cookie('jwt', '', { maxAge: 0 })
         res.status(200).json({ message: '✔️ Logged out successfully' })
     } catch (error) {
-        console.log('💢 Error at logout controller.')
+        console.log('💢 Error in Logout controller.')
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
@@ -108,16 +108,16 @@ export const updateProfile = async (req: any, res: Response) => {
 
         res.status(200).json({ message: '✔️ Successfully updated user.', updatedUser })
     } catch (error) {
-        console.log('💢 Error at updateProfile controller.')
+        console.log('💢 Error in updateProfile controller.')
         res.status(500).json({ error: '💢 Something is broken on our end.' })
     }
 }
 
-export const verifyAuth = async (req: any, res: Response) => { 
+export const checkAuth = async (req: any, res: Response) => { 
     try {
-        res.status(200).json(req.user) // ✏️ Used for testing authenication 
+        res.status(200).json(req.user)
     } catch (error) {
-        console.log('💢 Error at verifyAuth controller.')
+        console.log('💢 Error in checkAuth controller.')
         res.status(500).json({ message: '💢 Something is broken on our end.' }) 
     }
 }
