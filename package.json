@@ -1,7 +1,9 @@
 {
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
-    "@types/jsonwebtoken": "^9.0.10"
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6"
   },
   "dependencies": {
     "cloudinary": "^2.7.0",
