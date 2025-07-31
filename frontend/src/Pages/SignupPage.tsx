@@ -42,7 +42,7 @@ const SignupPage = () => {
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                        <Rabbit className="size-6" style={{ strokeWidth: 1 }} />
+                                        <Rabbit className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
                                     </div>
                                 </div>
                                 <input type="text" className={`input input-bordered w-full pl-10`} placeholder="Bruce Wayne" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
@@ -55,7 +55,7 @@ const SignupPage = () => {
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                    <Mail className="size-6" style={{ strokeWidth: 1 }} />
+                                    <Mail className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
                                 </div>
                                 <input type="email" className={`input input-bordered w-full pl-10`} placeholder="batman@super.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                             </div>
@@ -67,7 +67,7 @@ const SignupPage = () => {
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                    <Lock className="size-6" style={{ strokeWidth: 1 }} />
+                                    <Lock className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
                                 </div>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
