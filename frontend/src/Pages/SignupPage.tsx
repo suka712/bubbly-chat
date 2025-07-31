@@ -84,7 +84,6 @@ const SignupPage = () => {
                     </form>
                 </div>
             </div>
-            {/* Left card */}
         </div>
     )
 }
