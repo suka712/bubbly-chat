@@ -18,7 +18,7 @@ const SignupPage = () => {
     }
 
     return (
-        <div className="min-h-screen grid lg:grid-cols-[1.2fr_1fr]">
+        <div>
             {/* Login form */}
             <div className="flex flex-col justify-center items-center p-6 sm:p-12">
                 <div className="w-full max-w-md space-y-8">
