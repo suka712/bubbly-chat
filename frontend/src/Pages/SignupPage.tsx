@@ -45,7 +45,7 @@ const SignupPage = () => {
                                         <Rabbit className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
                                     </div>
                                 </div>
-                                <input type="text" className={`input input-bordered w-full pl-10`} placeholder="Bruce Wayne" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
+                                <input type="text" className={`input input-bordered w-full pl-10 focus:outline-none focus:border-gray-300`} placeholder="Bruce Wayne" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
                             </div>
                         </div>
                         {/* Email */}
@@ -57,7 +57,7 @@ const SignupPage = () => {
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
                                     <Mail className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
                                 </div>
-                                <input type="email" className={`input input-bordered w-full pl-10`} placeholder="batman@super.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+                                <input type="email" className={`input input-bordered w-full pl-10 focus:outline-none focus:border-gray-300`} placeholder="batman@super.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                             </div>
                         </div>
                         {/* Password */}
@@ -71,7 +71,7 @@ const SignupPage = () => {
                                 </div>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
-                                    className={`input input-bordered w-full pl-10`}
+                                    className={`input input-bordered w-full pl-10 focus:outline-none focus:border-gray-300`}
                                     placeholder="•••••••••"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
