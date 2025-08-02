@@ -29,6 +29,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
             toast.success('Account created successfully!')
         } catch (error: any) {
             toast.error(error.resonse?.data?.message)
+            console.log("💀 Something is broken in useAuthStore.ts' signup") // 💀 LOG
         } finally {
             set({ isSigningUp: false })
         }
@@ -53,5 +54,4 @@ interface AuthStore {
     isCheckingAuth: boolean
     checkAuth: () => Promise<void>
     signup: (data: any) => Promise<void>
-    logout: () => void
 }
