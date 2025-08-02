@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { useAuthStore } from '../store/useAthStore'
-import { MessageSquare, Rabbit, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { MessageSquare, AtSign, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const SignupPage = () => {
-    const [showPassword, setPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
     })
 
-    // const { signup, isSigningUp } = useAuthStore()
+    const { signup, isSigningUp } = useAuthStore()
 
     const validateForm = () => {}
     const handleSubmit = (e: any) => {
@@ -19,11 +20,11 @@ const SignupPage = () => {
 
     return (
         <div>
-            {/* Login form */}
+            {/* 📃 Login form */}
             <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-                <div className="w-full max-w-md space-y-8">
+                <div className="w-full max-w-md space-y-5">
                     {/* Ⓜ️ Logo */}
-                    <div className="text-center mb-8">
+                    <div className="text-center mb-3">
                         <div className="flex flex-col items-center gap-2 group">
                             <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                                 <MessageSquare className="size-6 text-primary" />
@@ -32,36 +33,38 @@ const SignupPage = () => {
                             <p className="text-base-content/60">Get started with your free account</p>
                         </div>
                     </div>
+
                     {/* 📃 Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         {/* 🫠 Username */}
-                        <div className="form-control">
+                        <div className="form-control mb-5">
                             <label className="label mb-1">
-                                <span className="label-text font-medium">Full Name</span>
+                                <span className="label-text font-medium">Username</span>
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                        <Rabbit className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
+                                        <AtSign className="size-5 opacity-70" style={{ strokeWidth: 1 }} />
                                     </div>
                                 </div>
                                 <input
                                     type="text"
                                     className={`input input-bordered w-full pl-10 focus:outline-none focus:border-gray-300`}
-                                    placeholder="Bruce Wayne"
+                                    placeholder="FabulousMoney67"
                                     value={formData.username}
                                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                                 />
                             </div>
                         </div>
+
                         {/* ✉️ Email */}
-                        <div className="form-control mb-4">
+                        <div className="form-control mb-5">
                             <label className="label mb-1">
                                 <span className="label-text font-medium">Email</span>
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                    <Mail className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
+                                    <Mail className="size-5 opacity-70" style={{ strokeWidth: 1 }} />
                                 </div>
                                 <input
                                     type="email"
@@ -72,14 +75,15 @@ const SignupPage = () => {
                                 />
                             </div>
                         </div>
+
                         {/* 🔐 Password */}
-                        <div className="form-control mb-4">
+                        <div className="form-control mb-5">
                             <label className="label mb-1">
                                 <span className="label-text font-medium">Password</span>
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                    <Lock className="size-6 opacity-70" style={{ strokeWidth: 1 }} />
+                                    <Lock className="size-5 opacity-70" style={{ strokeWidth: 1 }} />
                                 </div>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
@@ -88,12 +92,34 @@ const SignupPage = () => {
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
-                                <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowPassword(!showPassword)}>
+                                <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center z-1" onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? <EyeOff className="size-5 text-base-content/40" /> : <Eye className="size-5 text-base-content/40" />}
                                 </button>
                             </div>
                         </div>
+
+                        {/* 💖 Submit button */}
+                        <button type="submit" className="btn btn-primary w-full" disabled={isSigningUp}>
+                            {isSigningUp ? (
+                                <>
+                                    <Loader2 className="size-5 animate-spin" />
+                                    Loading...
+                                </>
+                            ) : (
+                                'Create Account'
+                            )}
+                        </button>
                     </form>
+
+                    {/* 🔗 Link */}
+                    <div className="text-center">
+                        <p className="text-base-content/60">
+                            Already have an account?{' '}
+                            <Link to="/login" className="link link-primary">
+                                Sign in
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
