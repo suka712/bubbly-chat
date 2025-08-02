@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuthStore } from '../store/useAthStore'
 import { MessageSquare, AtSign, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const SignupPage = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -13,9 +14,34 @@ const SignupPage = () => {
 
     const { signup, isSigningUp } = useAuthStore()
 
-    const validateForm = () => {}
+    const validateForm = () => {
+        if (!formData.username.trim()) {
+            return toast.error('Username is required!')
+        }
+        if (!formData.email.trim()) {
+            return toast.error('Email is required!')
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            return toast.error('Invalid email!')
+        }
+        if (!formData.password) {
+            return toast.error('Password is required!')
+        }
+        if (formData.password.length < 8) {
+            return toast.error('Password must be at least 8 characters!')
+        }
+
+        return true;
+    }
+
     const handleSubmit = (e: any) => {
         e.preventDefault()
+
+        const isSuccessful = validateForm()
+
+        if (isSuccessful) {
+            signup(formData);
+        }
     }
 
     return (
