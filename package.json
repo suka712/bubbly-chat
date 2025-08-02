@@ -1,14 +1,20 @@
 {
-  "devDependencies": {
-    "@types/cookie-parser": "^1.4.9",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6"
+  "name": "bubbly-chat",
+  "version": "1.0.0",
+  "description": "A fully-furnished chat application",
+  "homepage": "https://github.com/suka712/bubbly-chat#readme",
+  "bugs": {
+    "url": "https://github.com/suka712/bubbly-chat/issues"
   },
-  "dependencies": {
-    "cloudinary": "^2.7.0",
-    "cookie-parser": "^1.4.7",
-    "lucide": "^0.525.0",
-    "react-router-dom": "^7.6.3"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suka712/bubbly-chat.git"
+  },
+  "license": "ISC",
+  "author": "Khiem Nguyen (suka712)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }
