@@ -24,11 +24,11 @@ export const useAuthStore = create<AuthStore>()((set) => ({
     signup: async (data: any) => {
         set({ isSigningUp: true })
         try {
-            const res = axiosInstance.post('/auth/signup', data)
-            set({ authUser: (await res).data })
-            toast.success('✅ Account created successfully!')
-        } catch (error) {
-            toast.error('Something went wrong!')
+            const res = await axiosInstance.post('/auth/signup', data)
+            set({ authUser: res.data })
+            toast.success('Account created successfully!')
+        } catch (error: any) {
+            toast.error(error.resonse?.data?.message)
             console.log("💀 Something is broken in useAuthStore.ts' signup") // 💀 LOG
         } finally {
             set({ isSigningUp: false })
