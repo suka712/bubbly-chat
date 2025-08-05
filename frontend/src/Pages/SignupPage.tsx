@@ -16,19 +16,24 @@ const SignupPage = () => {
 
     const validateForm = () => {
         if (!formData.username.trim()) {
-            return toast.error('Username is required!')
+            toast.error('Username is required.')
+            return false
         }
         if (!formData.email.trim()) {
-            return toast.error('Email is required!')
+            toast.error('Email is required.')
+            return false
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            return toast.error('Invalid email!')
+            toast.error('Invalid email.')
+            return false
         }
         if (!formData.password) {
-            return toast.error('Password is required!')
+            toast.error('Password is required.')
+            return false
         }
         if (formData.password.length < 8) {
-            return toast.error('Password must be at least 8 characters!')
+            toast.error('Password must be at least 8 characters.')
+            return false
         }
 
         return true;
@@ -37,9 +42,9 @@ const SignupPage = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault()
 
-        const isSuccessful = validateForm()
+        const isValidated = validateForm()
 
-        if (isSuccessful) {
+        if (isValidated) {
             signup(formData);
         }
     }
@@ -142,7 +147,7 @@ const SignupPage = () => {
                         <p className="text-base-content/60">
                             Already have an account?{' '}
                             <Link to="/login" className="link link-primary">
-                                Sign in
+                                Log in
                             </Link>
                         </p>
                     </div>
