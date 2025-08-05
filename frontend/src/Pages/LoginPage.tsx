@@ -1,26 +1,29 @@
 import { useState } from 'react'
 import { useAuthStore } from '../store/useAthStore'
-import { AtSign, Lock, Eye, EyeOff, Loader2, Rabbit } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, Loader2, Rabbit } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
-        username: '',
+        email: '',
         password: '',
     })
     const { login, isLoggingIn } = useAuthStore()
 
     const validateForm = () => {
-        if (!formData.username.trim()) {
-            return toast.error('Username is required!')
+        if (!formData.email.trim()) {
+            toast.error('Email is required.')
+            return false
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            toast.error('Invalid email.')
+            return false
         }
         if (!formData.password) {
-            return toast.error('Password is required!')
-        }
-        if (formData.password.length < 8) {
-            return toast.error('Password must be at least 8 characters!')
+            toast.error('Password is required.')
+            return false
         }
 
         return true
@@ -29,12 +32,13 @@ const LoginPage = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault()
 
-        const isSuccessful = validateForm()
+        const isValidated = validateForm()
 
-        if (isSuccessful) {
+        if (isValidated) {
             login(formData)
         }
     }
+
     return (
         <div>
             {/* 📃 Login form */}
@@ -56,25 +60,23 @@ const LoginPage = () => {
                         {/* 🫠 Username */}
                         <div className="form-control mb-5">
                             <label className="label mb-1">
-                                <span className="label-text">Username</span>
+                                <span className="label-text">Email</span>
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center z-10">
-                                        <AtSign className="size-5 opacity-70" style={{ strokeWidth: 1 }} />
+                                        <Mail className="size-5 opacity-70" style={{ strokeWidth: 1 }} />
                                     </div>
                                 </div>
                                 <input
                                     type="text"
                                     className={`input input-bordered w-full pl-10 focus:outline-none focus:border-gray-300`}
                                     placeholder="BruceWayne67"
-                                    value={formData.username}
-                                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
                         </div>
-
-                        {/* ✉️ Email */}
 
                         {/* 🔐 Password */}
                         <div className="form-control mb-5">
@@ -106,7 +108,7 @@ const LoginPage = () => {
                                     Loading...
                                 </>
                             ) : (
-                                'Sign in'
+                                'Log in'
                             )}
                         </button>
                     </form>
@@ -115,7 +117,7 @@ const LoginPage = () => {
                     <div className="text-center">
                         <p className="text-base-content/60">
                             Doesn't have an account?{' '}
-                            <Link to="/login" className="link link-primary">
+                            <Link to="/signup" className="link link-primary">
                                 Sign up
                             </Link>
                         </p>
