@@ -19,21 +19,19 @@ export const NavBar = () => {
                             <Settings className="h-7 w-5" />
                         </Link>
                     </li>
-                    {authUser ? (
+                    {authUser && (
                         <>
                             <li>
-                                <Link to="/profile" onClick={logout}>
+                                <Link to="/profile">
                                     <Rabbit className="h-7 w-5" />
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/logout" onClick={logout}>
+                                <button onClick={logout}>
                                     <Power className="h-7 w-5" />
-                                </Link>
+                                </button>
                             </li>
                         </>
-                    ) : (
-                        <></>
                     )}
                 </ul>
             </div>
