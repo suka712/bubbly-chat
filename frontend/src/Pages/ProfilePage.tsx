@@ -91,13 +91,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ initialUsername = 'BruceWayne
                                         />
                                         <button onClick={handleUsernameSave} disabled={isUpdating || !tempUsername.trim()} className="btn btn-primary btn-sm px-2 py-4.5">
                                             {isUpdating ? (
-                                                <div className="size-4 border-2 border-primary-content/30 border-t-primary-content rounded-full animate-spin" />
+                                                <div className="px-2.5 py-2.5 w-6 h-6 border-1 border-t-primary-content rounded-full animate-spin" />
                                             ) : (
-                                                <Check className="stroke-1" />
+                                                <Check className="stroke-1 size-6" />
                                             )}
                                         </button>
                                         <button onClick={handleUsernameCancel} disabled={isUpdating} className="btn btn-ghost btn-sm px-2 py-4.5">
-                                            <X className="stroke-1" />
+                                            <X className="stroke-1 size-6" />
                                         </button>
                                     </div>
                                 ) : (
