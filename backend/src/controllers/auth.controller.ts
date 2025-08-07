@@ -20,7 +20,7 @@ export const signup = async (req: Request, res: Response) => {
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             res.status(400).json({message: 'Invalid email.'})
-            return false
+            return
         }
         if (user) {
             res.status(400).json({ message: 'Email already exists.' })
