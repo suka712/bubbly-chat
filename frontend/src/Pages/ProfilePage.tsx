@@ -1,15 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { User, Mail, Edit3, Check, X, Camera } from 'lucide-react'
 import { useAuthStore } from '../store/useAthStore'
 import toast from 'react-hot-toast'
 
-interface ProfilePageProps {
-    initialUsername?: string
-    initialEmail?: string
-    initialAvatar?: string
-}
-
-const ProfilePage: React.FC<ProfilePageProps> = () => {
+const ProfilePage = () => {
     const { authUser, updateUsername, isUpdatingUsername } = useAuthStore()
 
     const [username, setUsername] = useState(authUser?.username) 
