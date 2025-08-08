@@ -106,7 +106,7 @@ export const updateAvatar = async (req: any, res: Response) => {
 
         await User.findByIdAndUpdate(userId, { avatar: uploadResponse.secure_url })
 
-        res.status(200).json({ message: 'Updated avatar successfully.' })
+        res.status(200).json({ message: 'Updated avatar successfully.', avatar: newAvatar })
     } catch (error) {
         console.log('💀 ERROR IN updateAvatar controller')
         res.status(500).json({ message: 'Something is broken on our end.' })
@@ -115,8 +115,8 @@ export const updateAvatar = async (req: any, res: Response) => {
 
 export const updateUsername = async (req: any, res: Response) => {
     try {
-        let { newUsername } = req.body
-        newUsername = newUsername?.trim()
+        let { newUsername: newUsername } = req.body
+        newUsername = newUsername.trim()
 
         const userId = req.user._id
 
@@ -127,7 +127,7 @@ export const updateUsername = async (req: any, res: Response) => {
 
         await User.findByIdAndUpdate(userId, { username: newUsername })
 
-        res.status(200).json({ message: 'Updated username successfully.' })
+        res.status(200).json({ message: 'Updated username successfully.', username: newUsername })
     } catch (error) {
         console.log('ERROR IN updateUsername:', error)
         res.status(500).json({ message: 'Something is broken on our end.' })
