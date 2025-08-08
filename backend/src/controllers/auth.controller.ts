@@ -115,7 +115,9 @@ export const updateAvatar = async (req: any, res: Response) => {
 
 export const updateUsername = async (req: any, res: Response) => {
     try {
-        const { newUsername: newUsername } = req.body
+        let { newUsername } = req.body
+        newUsername = newUsername?.trim()
+
         const userId = req.user._id
 
         if (!newUsername) {
