@@ -1,8 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import authRouter from './routes/auth.route.ts'
-import messageRouter from './routes/message.route.ts'
-import { connectDB } from './lib/db.ts'
+import authRouter from './routes/auth.route'
+import messageRouter from './routes/message.route'
+import { connectDB } from './lib/db'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
