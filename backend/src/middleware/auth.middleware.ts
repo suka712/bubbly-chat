@@ -6,14 +6,12 @@ export const protectRoute = async (req: any, res: Response, next: NextFunction) 
   try {
     const token = req.cookies.jwt
     if (!token) {
-      res.status(401).json({ message: 'Unauthorized.' })
-      return
+      return res.status(401).json({ message: 'Unauthorized.' })
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET!)
     if (!decodedToken) {
-      res.status(401).json({ message: 'Unauthorized.' })
-      return
+      return res.status(401).json({ message: 'Unauthorized.' })
     }
 
     if (typeof decodedToken !== 'object' || !decodedToken?.userId) {
@@ -24,7 +22,7 @@ export const protectRoute = async (req: any, res: Response, next: NextFunction) 
     req.user = user
     next()
   } catch (error) {
-    console.log('ERROR in protectRoute middleware:', error)
+    console.log('Error in protectRoute middleware:', error)
     res.status(500).json({ message: 'Something is broken on our end.' })
   }
 }

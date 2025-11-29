@@ -1,6 +1,6 @@
 import express, { json } from 'express'
-import { login, logout, signup, updateAvatar, updateUsername, checkAuth  } from '../controllers/auth.controller.ts'
-import { protectRoute } from '../middleware/auth.middleware.ts'
+import { login, logout, signup, updateAvatar, updateUsername, checkAuth  } from '../controllers/auth.controller'
+import { protectRoute } from '../middleware/auth.middleware'
 
 const router = express.Router()
 router.use(json())
