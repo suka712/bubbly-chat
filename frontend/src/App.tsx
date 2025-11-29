@@ -28,7 +28,7 @@ const App = () => {
     }
 
     return (
-        <div>
+        <>
             <NavBar />
             <Routes>
                 <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
@@ -38,7 +38,7 @@ const App = () => {
                 <Route path="/settings" element={authUser ? <SettingPage /> : <Navigate to="/login" />} />
             </Routes>
             <Toaster />
-        </div>
+        </>
     )
 }
 
