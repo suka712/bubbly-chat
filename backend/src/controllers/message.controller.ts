@@ -58,7 +58,7 @@ export const sendMessage = async (req: any, res: Response) => {
 
     await newMessage.save();
 
-    // ☑️ TODO: realtime functionalities with SocketIO
+    // TODO: realtime functionalities with SocketIO
 
     res.status(201).json(newMessage);
   } catch (error) {
