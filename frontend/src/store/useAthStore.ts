@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios'
 import toast from 'react-hot-toast'
+import { AxiosError } from 'axios'
 
 export const useAuthStore = create<AuthStore>()(set => ({
   authUser: null,
@@ -80,9 +81,14 @@ export const useAuthStore = create<AuthStore>()(set => ({
         withCredentials: true,
       })
       toast.success(res.data.message || 'Updated avatar successfully.')
-    } catch (error: any) {
-      toast.error(error.response.data.message || 'Error updating avatar')
-      console.log('💀 ERROR IN updateAvatar:', error.response.data.message)
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log('Axios error:', error.response?.data)
+        toast.error(error.response?.data.message || 'Error updating avatar')
+      } else {
+        console.log('Error: ', error)
+        toast.error('Error updating avatar')
+      }
     } finally {
       set({ isUpdatingAvatar: false })
     }
