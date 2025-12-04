@@ -41,9 +41,14 @@ export const useAuthStore = create<AuthStore>()((set) => ({
         },
       });
       toast.success(res.data.message);
-    } catch (error: any) {
-      toast.error(error.response.data.message || "Error signing up.");
-      console.log("💀 ERROR IN SIGNUP:", error.response.data.message);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log("Axios error:", error.response?.data);
+        toast.error(error.response?.data.message || "Error signing up");
+      } else {
+        console.log("Error: ", error);
+        toast.error("Error signing up");
+      }
     } finally {
       set({ isSigningUp: false });
     }
@@ -128,9 +133,14 @@ export const useAuthStore = create<AuthStore>()((set) => ({
           : state.authUser,
       }));
       toast.success(res.data.message || "Updated username successfully.");
-    } catch (error: any) {
-      toast.error(error.response.data.message || "Error updating username");
-      console.log("💀 ERROR IN updateUsername:", error.response.data.message);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log("Axios error:", error.response?.data);
+        toast.error(error.response?.data.message || "Error updating username");
+      } else {
+        console.log("Error: ", error);
+        toast.error("Error updating username");
+      }
     } finally {
       set({ isUpdatingUsername: false });
     }
