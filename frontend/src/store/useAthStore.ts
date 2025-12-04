@@ -71,10 +71,10 @@ export const useAuthStore = create<AuthStore>()(set => ({
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         console.log('Axios error:', error.response?.data)
-        toast.error(error.response?.data.message || 'Error loging in')
+        toast.error(error.response?.data.message || 'Error loging out')
       } else {
         console.log('Error: ', error)
-        toast.error('Error loging in')
+        toast.error('Error loging out')
       }
     }
   },
