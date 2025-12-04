@@ -55,9 +55,14 @@ export const useAuthStore = create<AuthStore>()(set => ({
         },
       })
       toast.success('Logged in successfully!')
-    } catch (error: any) {
-      toast.error(error.response.data.message || 'Error logging in')
-      console.log('💀 ERROR IN LOGIN:', error.response.data.message)
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log('Axios error:', error.response?.data)
+        toast.error(error.response?.data.message || 'Error loging in')
+      } else {
+        console.log('Error: ', error)
+        toast.error('Error loging in')
+      }  
     } finally {
       set({ isLoggingIn: false })
     }
