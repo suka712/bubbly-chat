@@ -53,10 +53,8 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     // Placeholder for avatar upload functionality
     console.log("Avatar upload clicked");
   };
-  
-  const underConstruction = () => {
-    toast("Feature under construction.");
-  }
+
+  const underConstruction = () => toast("Feature under construction.");
 
   return (
     <div className="flex flex-col justify-center items-center p-6 sm:p-12">
