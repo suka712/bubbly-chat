@@ -53,6 +53,10 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     // Placeholder for avatar upload functionality
     console.log("Avatar upload clicked");
   };
+  
+  const underConstruction = () => {
+    toast("Feature under construction.")
+  }
 
   return (
     <div className="flex flex-col justify-center items-center p-6 sm:p-12">
@@ -174,8 +178,16 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
 
           {/* Additional Actions */}
           <div className="space-y-4">
-            <button className="btn btn-outline w-full">Change Password</button>
-            <button className="btn btn-error btn-outline w-full">
+            <button
+              className="btn btn-outline w-full"
+              onClick={() => underConstruction()}
+            >
+              Change Password
+            </button>
+            <button
+              className="btn btn-error btn-outline w-full"
+              onClick={() => underConstruction()}
+            >
               Delete Account
             </button>
           </div>
