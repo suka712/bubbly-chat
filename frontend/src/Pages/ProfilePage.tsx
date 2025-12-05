@@ -11,10 +11,9 @@ interface ProfilePageProps {
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
   const { authUser, updateUsername, isUpdatingUsername } = useAuthStore();
-
-  const [username, setUsername] = useState(authUser?.username);
   const [email] = useState(authUser?.email);
   const [avatar] = useState(authUser?.avatar);
+  const [username, setUsername] = useState(authUser?.username);
   const [isEditingUsername, setIsEditingUsername] = useState(false);
   const [tempUsername, setTempUsername] = useState(username);
 
@@ -25,7 +24,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
 
   const validateUsername = (): boolean => {
     if (!tempUsername?.trim()) {
-      toast.error("Username is required.");
+      toast.error("Username cannot be empty.");
       return false;
     }
     return true;
