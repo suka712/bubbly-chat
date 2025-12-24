@@ -13,12 +13,11 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   const { authUser, updateUsername, isUpdatingUsername } = useAuthStore();
   const [email] = useState(authUser?.email);
   const [avatar] = useState(authUser?.avatar);
-  const [username, setUsername] = useState(authUser?.username);
   const [isEditingUsername, setIsEditingUsername] = useState(false);
-  const [tempUsername, setTempUsername] = useState(username);
+  const [tempUsername, setTempUsername] = useState(authUser?.username);
 
   const handleUsernameEdit = () => {
-    setTempUsername(username);
+    setTempUsername(authUser?.username);
     setIsEditingUsername(true);
   };
 
@@ -36,7 +35,6 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     }
     try {
       await updateUsername({ newUsername: tempUsername! });
-      setUsername(useAuthStore.getState().authUser?.username);
       setIsEditingUsername(false);
     } catch {
       toast.error("Error updating username.");
@@ -44,7 +42,6 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   };
 
   const handleUsernameCancel = () => {
-    setTempUsername(username);
     setIsEditingUsername(false);
   };
 
@@ -138,7 +135,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
                   <input
                     type="text"
                     className="input input-bordered flex-1 pl-10 cursor-default focus:outline-none focus:border-gray-300"
-                    value={username}
+                    value={authUser?.username}
                     readOnly
                   />
                   <button
