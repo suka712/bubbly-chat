@@ -26,11 +26,11 @@ Create a `.env` file:
 
 ```
 PORT=5050
-JWT_SECRET=your_secret_key
-MONGODB_URI=your_mongodb_uri
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+JWT_SECRET=supersecret
+MONGODB_URI=mongodb+srv://username123:password123@cluster123.abcdefg.mongodb.net/?appName=cluster123
+CLOUDINARY_CLOUD_NAME=cloudname123
+CLOUDINARY_API_KEY=000000001111111
+CLOUDINARY_API_SECRET=12-000000fffffffff11
 NODE_ENV=development
 ```
 
@@ -57,7 +57,7 @@ Start the dev server:
 
 ```bash
 npm run dev
-
+```
 ## Project Structure
 
 ```
