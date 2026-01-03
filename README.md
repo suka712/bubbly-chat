@@ -4,8 +4,8 @@ A collaborative chat application where multiple users can join discussions with 
 
 ## Tech Stack
 
-**Backend:** Express.js, MongoDB, Cloudinary
-**Frontend:** React
+**Backend:** Express.js, MongoDB
+**Frontend:** React, Tailwind
 
 ## Getting Started
 
